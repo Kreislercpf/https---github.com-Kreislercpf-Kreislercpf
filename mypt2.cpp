@@ -11,7 +11,7 @@ struct group_face: public numpunct<char> {
         string do_grouping() const { return "\003"; }
 };
 
-void promptAndWait();
+void promptAndAWait();
 
 
 void dollarsToPeso(float rate, unsigned dollars = 1 );
@@ -41,7 +41,7 @@ int main () {
                 cout << "Enter a US dollar amount (without the dollar sign, commas or a decimal) : [####] ";
                 cin >> dollarsIn;
                 dollarsToPeso(conversionRate, dollarsIn);
-                promptAndWait();
+                promptAndAWait();
                 break;
             }
             case 2:{
@@ -49,24 +49,24 @@ int main () {
                 cout << "Enter a peso amount (without the dollar sign, commas or a decimal) : [####] ";
                 cin >> pesoIn;
                 pesotodollars(conversionRate, pesoIn);
-                promptAndWait();
+                promptAndAWait();
                 break;
             }
             case 0:{
-                promptAndWait();
+                promptAndAWait();
                 cout << "Conversion App Terminated \nThank you for using the app!";
                 return 0;
             }
             default :{
                 cout << "Invalid Input!";
-                promptAndWait();
+                promptAndAWait();
             }
         }
     }while(ans == 0);
 
 }
 
- void promptAndWait() {
+ void promptAndAWait() {
 
     cin.ignore(100, '\n');
     cout << "\nPress Enter or Return to continue...";
