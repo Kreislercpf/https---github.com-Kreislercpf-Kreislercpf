@@ -5,55 +5,60 @@
 import java.util.Scanner;
 public class InsertionSort{
 
-	
-			//Function insertion sort
-            void sort(int arr[])
+			//Function of insertion sort
+            public static void sort(int arr[])
             {
-                int size  = arr.length;
-                for (int x = 1; x < size; x++) {
-                    int key = arr[x];
-                    int j = x - 1;
-          
-                    //Move elements of arr[0..i-1]
-                    while (j >= 0 && arr[j] > key) {
-                        arr[j + 1] = arr[j];
-                        j = j - 1;
+                int size = arr.length;
+                         System.out.print("\nSorting:\n");
+                for (int taligatos = 1; taligatos < size; ++taligatos) {
+                    int key = arr[taligatos];
+                    int c = taligatos - 1;
+        
+                    while (c >= 0 && arr[c] > key) {
+                        arr[c + 1] = arr[c];
+                        c = c - 1;
                     }
-                    arr[j + 1] = key;
-                }
+                    arr[c + 1] = key;
+                                
+                                for (int kreisler = 0; kreisler < size; ++kreisler){
+                    System.out.print(arr[kreisler] + " ");}
+                                //Print the sorting process
+                                 System.out.println(" ");
+                                     }              
             }
-          
-            /* A utility function to print array of size n*/
+        
+            //print array
             static void printArray(int arr[])
             {
-                System.out.print("\nSorted array : ");
-                int size  = arr.length;
-                for (int x = 0; x < size; x++)
-                    System.out.print(arr[x] + " ");
-          
+                        System.out.print("\nInsertion Sorted Array: ");
+                int size = arr.length;
+                for (int chan = 0; chan < size; ++chan)
+                    System.out.print(arr[chan] + " ");
+        
                 System.out.println();
             }
-
     public static void main(String[] args){
-    int arr[] = new int [5];  //name array: arr, size = 100
-	Scanner sn = new Scanner(System.in);
-    int size  = arr.length;
+ 
+        int size;  //name array: arr, size = 100
+	    Scanner sn = new Scanner(System.in);
+      //add elements in the array
+           System.out.print("Enter the size of the array : ");
+           size = sn.nextInt();
 //add elements in the array
-        for(int x = 0; x < size; x++){
-            System.out.print("Enter the array values [" + (x+1) + "]: ");
-           arr[x] = sn.nextInt();
+         int arr[] = new int [size];
+        for(int pogi = 0; pogi < size; pogi++){
+         System.out.print("Enter the array values [" + (pogi+1) + "]: ");
+           arr[pogi] = sn.nextInt();
         }
            System.out.print("\nElements of the array : ");
-        for(int x = 0; x < size; x++)
+             for(int pogi = 0; pogi < size; pogi++)
         
-            System.out.print(arr[x] + " ");
+              System.out.print(arr[pogi] + " ");
         
-        
-        InsertionSort ob = new InsertionSort();
-        ob.sort(arr);
+            InsertionSort ob = new InsertionSort();
+            ob.sort(arr);
   
-        printArray(arr);
-    
+           printArray(arr);
         }
 }
 
