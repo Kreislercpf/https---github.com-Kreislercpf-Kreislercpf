@@ -21,7 +21,9 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
-
+<?php
+    include('session.php');
+?>
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -328,11 +330,22 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"LIVE
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                    <?php
+                                        if($session){
+                                            echo $fname. ' '.$lname;
+                                        }
+                                    ?>
+                                </span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                        <?php
+                                            while($row_image = mysqli_fetch_array($image_query)){
+                                                echo '<img src = "data:image/jpeg;base64,'.base64_encode($row_image['picture']).'" height= "20" width="20"/>';
+                                            }
+                                        ?>
+                                >
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -382,8 +395,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                                Registered Users</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $user_count?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -460,7 +473,6 @@
                     </div>
 
                     <!-- Content Row DISPLAY OF STUDENT RECORDS-->
-
                     <div class="row">
                         <?php
                             require_once('connect.php');
@@ -471,24 +483,20 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>First Name</th><th>Last Name</th><th>Email Address</th><th>Date of Birth</th><th>Gender</th><th>ContactNo</th><th>Address</th>
+                                        <th>Full Name</th><th>Email Address</th> <!--Column/Fields-->
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <!--Printing out data from database-->
                                     <?php
-                                        $retrieve = mysqli_query($conn,"select * from users_tbl");
+                                        $retrieve = mysqli_query($conn,"select * from users_db.");
                                         $ctr = 1;
                                         while ($rows=mysqli_fetch_array($retrieve)) {
                                     ?>
                                         <tr id="<?php echo $rows['id']; ?>">
-                                            <td><?php echo $rows['firstname'] ?></td>
-                                            <td><?php echo $rows['lastname'] ?></td>
-                                            <td><?php echo $rows['email'] ?></td>
-                                            <td><?php echo $rows['birthdate'] ?></td>
-                                            <td><?php echo $rows['gender'] ?></td>
-                                            <td><?php echo $rows['contactno'] ?></td>
-                                            <td><?php echo $rows['address'] ?></td>
-                                            <td><?php echo $rows['regs_date'] ?></td>
+                                            <td><?php echo $rows['fullname'] ?></td>
+                                           <td><?php echo $rows['email'] ?></td>
+                                           
                                             <td>Edit</td>
                                             <td>Delete</td>
                                         </tr>
@@ -499,9 +507,6 @@
                             </table> 
                         </div>
                     </div>
-
-                    
-
                 </div>
                 <!-- /.container-fluid -->
 
@@ -544,7 +549,6 @@
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
             </div>
         </div>
     </div>

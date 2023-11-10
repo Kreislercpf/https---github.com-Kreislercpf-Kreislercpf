@@ -3,18 +3,14 @@
 
     if(isset($_POST['submit'])) {
         if($conn){
-            $fname = $_POST['firstname'];
-            $lname = $_POST['lastname'];
+            $fullname = $_POST['fullname'];
             $email = $_POST['email'];
-            $bdate = $_POST['birthdate'];
-            $gender = $_POST['gender'];
-            $contact = $_POST['contactno'];
-            $address = $_POST['address'];
+            $picture = $_POST['picture'];
             $username = $_POST['username'];
             $password = $_POST['password'];
-            $cpassword = $_POST['cpassword'];
+         
 
-            $query = "insert into users_tbl (firstname,lastname,email,birthdate,gender,contactno,address,username,password,cpassword,regs_date) value('$fname','$lname','$email','$bdate','$gender','$contact','$address','$username','$password','$cpassword',NOW())";
+            $query = "insert into users_db. (fullname,email,picture,password,regs_date) value('$fullname','$email','$picture','$username','$password',NOW())";
 
             $result = mysqli_query($conn,$query);
 
@@ -23,7 +19,7 @@
                 echo 'alert("Successfully Registered!");';
                 echo '</script>'; ?>
                 <script type ="text/Javascript">
-                    window.location='admin_dashboard.php';
+                    window.location='login.html';
                 </script>
             <?php
             }

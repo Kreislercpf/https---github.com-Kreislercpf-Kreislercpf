@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     $SERVER_NAME = "localhost";
     $USERNAME = "root";
     $PASSWORD = "";
@@ -9,6 +11,6 @@
     if($conn->connect_error) {
         die("Connection failed: ". $conn->connect_error);
     }
-  //echo "Connection Successful...";
-  //$conn->close();
+   // echo "Connection Successful...";
+   //$conn->close();
 ?>
