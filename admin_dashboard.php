@@ -21,6 +21,13 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
+<script type="text/javascript">
+    function delete_id(id){
+        if(confirm('Are you sure you want to delete this record?')){
+            window.location.href='admin_dashboard.php?delete_id='+id;
+        }
+    }
+</script>
 <?php
     include('session.php');
 ?>
@@ -472,37 +479,62 @@
                         </div>
                     </div>
 
-                    <!-- Content Row DISPLAY OF STUDENT RECORDS-->
+                    <!-- Displaying information retrieved from the database-->
                     <div class="row">
-                        <?php
-                            require_once('connect.php');
+                    <?php require_once('connect.php'); ?>
 
-                        ?>
 
-                        <div class="row">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>Full Name</th><th>Email Address</th> <!--Column/Fields-->
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!--Printing out data from database-->
-                                    <?php
-                                        $retrieve = mysqli_query($conn,"select * from users_db.");
-                                        $ctr = 1;
-                                        while ($rows=mysqli_fetch_array($retrieve)) {
-                                    ?>
-                                        <tr id="<?php echo $rows['id']; ?>">
-                                            <td><?php echo $rows['fullname'] ?></td>
-                                           <td><?php echo $rows['email'] ?></td>
-                                           
-                                            <td>Edit</td>
-                                            <td>Delete</td>
-                                        </tr>
-                                        <?php 
-                                            $ctr++;
-                                        }?>
+<!-- Content Row DISPLAY OF STUDENTS RECORD -->
+<div class="row">
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
+<thead>
+<tr>
+<th style="padding: 10px; text-align: left; background-color: #f2f2f2;">First Name</th>
+<th style="padding: 10px; text-align: left; background-color: #f2f2f2;">Last Name</th>
+<th style="padding: 10px; text-align: left; background-color: #f2f2f2;">Email</th>
+<th style="padding: 10px; text-align: left; background-color: #f2f2f2;">Birth Date</th>
+<th style="padding: 10px; text-align: left; background-color: #f2f2f2;">Gender</th>
+<th style="padding: 10px; text-align: left; background-color: #f2f2f2;">contactno</th>
+<th style="padding: 10px; text-align: left; background-color: #f2f2f2;">Address</th>
+<th style="padding: 10px; text-align: left; background-color: #f2f2f2;">Registration Date</th>
+<th style="padding: 10px; text-align: left; background-color: #f2f2f2;">To Edit</th>
+<th style="padding: 10px; text-align: left; background-color: #f2f2f2;">To Delete</th>
+</tr>
+               
+            <?php
+            //Query to delete individual record
+            if (isset($_GET['delete_id'])){
+                $query = "DELETE from users_tbl where id = ".$_GET['delete_id'];
+                mysqli_query($conn,$query);?>   
+                <script>
+                    window.location.href='admin_dashboard.php'
+                </script>
+            <?php
+            }
+
+            $retrieve = mysqli_query($conn, "select * from users_tbl");
+            $ctr = 1;
+            while ($rows = mysqli_fetch_array($retrieve)){  ?>
+                <tr id="<?php echo $rows['id']; ?>">
+                    <td><?php echo $rows['firstname'] ?></td>
+                    <td><?php echo $rows['lastname'] ?></td>
+                    <td><?php echo $rows['email'] ?></td>
+                    <td><?php echo $rows['birthdate'] ?></td>
+                    <td><?php echo $rows['gender'] ?></td>
+                    <td><?php echo $rows['contactno'] ?></td>
+                    <td><?php echo $rows['address'] ?></td>
+                    <td><?php echo $rows['regs_date'] ?></td>
+                    <td>
+                        <a href="update.php?id=<?php echo $rows['id']; ?>">Edit</a>
+                    </td>
+                    <td>
+                        <a href= javascript:delete_id(<?php echo $rows['id'];?>)>Delete</a>
+                    </td>
+                </tr>
+            <?php
+                $ctr++;
+            }
+            ?>
                                 </tbody>
                             </table> 
                         </div>
